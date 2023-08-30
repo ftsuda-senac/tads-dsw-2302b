@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="titulo">Tela acessada via Tradicional Controller</h1>
+    <div>Texto 1</div>
+    <div>Texto 2</div>
+    <script>
+        let elH1 = document.getElementById('titulo');
+        elH1.innerHTML = 'Texto alterado via Javascript';
+        elH1.style.color = 'red';
+
+        let elDiv = document.querySelector('div');
+        elDiv.style.color = 'blue';
+
+        let elDivArray = document.querySelectorAll('div');
+        for (let i = 0; i < elDivArray.length; i++) {
+            elDivArray[i].style.color = 'cyan';
+        }
+
+    </script>
+</body>
+</html>

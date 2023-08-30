@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplos Javascript</title>
+    <link rel="stylesheet" href="css/estilos.css" />
+</head>
+<body>
+    <h1>Exemplos Javascript</h1>
+    <button id="btnAlterarClass">Alterar class</button>
+    <div id="conteudo">
+        
+    </div>
+    <a href="tradicional?opcao=1&tipo=xpto">Tradicional</a>
+    <button id="outratela">Ir para Tradicional</button>
+    <script>
+
+        let elDiv = document.querySelector('#conteudo');
+        elDiv.innerHTML = '<p>Texto tag p</p><p>Outro texto</p>';
+        elDiv.insertAdjacentHTML('afterend', 
+        '<div class="adjacent">Texto elemento via insertAdjacentHTML</div>');
+
+        let btn = document.getElementById('btnAlterarClass');
+        btn.onclick = function() {
+            let elDiv2 = document.getElementById('conteudo');
+            elDiv2.classList.toggle('ativado');
+        }
+
+        let btnOutraTela = document.getElementById('outratela');
+        // btnOutraTela.onclick = function() {
+        //     window.location.href = 'tradicional?opcao=2&tipo=abc';
+        // }
+        // btnOutraTela.addEventListener('click', function() {
+        //     window.location.href = 'tradicional?opcao=2&tipo=abc';
+        // });
+        btnOutraTela.onclick = () => window.location.href = 'tradicional?opcao=2&tipo=abc';
+
+
+    </script>
+</body>
+</html>
