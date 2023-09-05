@@ -31,6 +31,9 @@
         </ul>
       </div>
     </header>
+    <div id="seguidores">
+
+    </div>
     <div class="principal"> <!-- TODO O CORPO DAS DEMAIS INFORMAÇÕES -->
       <div class="coluna">
         <section class="info" id="expprof">
@@ -151,8 +154,29 @@
     // }
     document.addEventListener('DOMContentLoaded', function() {
       carregarJson();
+      carregarJsonSeguidores();
     });
 
+    function carregarJsonSeguidores() {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'dados-array-seguidores.json');
+
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          const dadosArray = JSON.parse(xhr.responseText);
+          
+          const elDivSeguidores = document.getElementById('seguidores');
+          for (let i = 0; i < dadosArray.length; i++) {
+            const dado = dadosArray[i];
+            elDivSeguidores.insertAdjacentHTML('beforeend', 
+            '<p>' + dado.nome + '<br />' + dado.email + '</p>');
+          }
+        } else {
+          alert('Erro ' + xhr.status);
+        }
+      }
+      xhr.send();
+    }
 
   </script>
 </body>
