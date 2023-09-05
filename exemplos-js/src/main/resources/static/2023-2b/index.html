@@ -13,20 +13,21 @@
 
 <body>
   <main>
+    <button id="btnDados">Carregar dados</button>
     <header>
       <div id="nome-foto">
         <div>
           <img src="../img/avatar-padrao.jpg" title="Fernando Tsuda" alt="Foto Fernando Tsuda" />
         </div>
-        <h1>Fernando Tsuda</h1>
+        <h1 id="nome"></h1>
       </div>
       <div id="contato">
         <ul>
-          <li><i class="fa-solid fa-envelope fa-2xl"></i> fernando.tsuda@sp.senac.br</li>
-          <li><i class="fa-solid fa-phone fa-2xl"></i> (11) 99999-1234</li>
-          <li><i class="fa-solid fa-cake-candles fa-2xl"></i> 01/01/1982</li>
-          <li><i class="fa-brands fa-linkedin fa-2xl"></i> <a href="https://linkedin.com">https://linkedin.com</a></li>
-          <li><i class="fa-brands fa-square-github fa-2xl"></i> <a href="https://github.com/ftsuda-senac">https://github.com/ftsuda-senac</a></li>
+          <li><i class="fa-solid fa-envelope fa-2xl"></i> <span id="email"></span></li>
+          <li><i class="fa-solid fa-phone fa-2xl"></i> <span id="telefone"></span></li>
+          <li><i class="fa-solid fa-cake-candles fa-2xl"></i> <span id="dataNascimento"></span></li>
+          <li><i class="fa-brands fa-linkedin fa-2xl"></i> <a href="" id="linkedInUrl"></a></li>
+          <li><i class="fa-brands fa-square-github fa-2xl"></i> <a href="" id="gitHubUrl"></a></li>
         </ul>
       </div>
     </header>
@@ -118,6 +119,42 @@
     </div>
 
   </main>
+  <script>
+    function carregarJson() {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', '/dados', true);
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          const resp = xhr.responseText; // Dados no formato texto
+          const dados = JSON.parse(resp); // Converte em variavel JS
+
+          // Tratar dados recebidos em resp
+          document.getElementById('nome').innerHTML = dados.nome;
+          document.getElementById('email').innerHTML = dados.email;
+          document.getElementById('telefone').innerHTML = dados.telefone;
+          document.getElementById('dataNascimento').innerHTML = dados.dataNascimento;
+          const aLinkedIn = document.getElementById('linkedInUrl');
+          aLinkedIn.href = dados.linkedInUrl;
+          aLinkedIn.innerHTML = dados.linkedInUrl;
+          const aGitHub = document.getElementById('gitHubUrl');
+          aGitHub.href = dados.gitHubUrl;
+          aGitHub.innerHTML = dados.gitHubUrl;
+          
+          } else {
+            // Tratar o erro
+          }
+      };
+      xhr.send();
+    }
+    // document.getElementById('btnDados').onclick = function () {
+    //   carregarJson();
+    // }
+    document.addEventListener('DOMContentLoaded', function() {
+      carregarJson();
+    });
+
+
+  </script>
 </body>
 
 </html>
