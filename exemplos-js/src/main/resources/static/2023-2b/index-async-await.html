@@ -145,9 +145,10 @@
       return promise;
     }
 
-    function carregarDados() {
-      const promise = getJson('http://127.0.0.1:8080/dados');
-      promise.then(function(dados) {
+    async function carregarDados() {
+      try {
+        const dados = await getJson('/dados2');
+        // Lógica do Promise foi executada com sucesso e retorna os dados
         // Tratar dados recebidos em resp
         document.getElementById('nome').innerHTML = dados.nome;
         document.getElementById('email').innerHTML = dados.email;
@@ -159,23 +160,24 @@
         const aGitHub = document.getElementById('gitHubUrl');
         aGitHub.href = dados.gitHubUrl;
         aGitHub.innerHTML = dados.gitHubUrl;
-      }).catch(function(err) {
+      } catch(err) {
         alert(err.mensagem + ' ' + err.codigo);
-      })
-
+        // window.location.href = 'erro.html'
+      }
     }
 
-    function carregarSeguidores() {
-      getJson('dados-array-seguidores.json').then((dadosArray) => {
+    async function carregarSeguidores() {
+      try {
+        const dadosArray = await getJson('dados-array-seguidores.json');
         const elDivSeguidores = document.getElementById('seguidores');
           for (let i = 0; i < dadosArray.length; i++) {
             const dado = dadosArray[i];
             elDivSeguidores.insertAdjacentHTML('beforeend', 
             '<p>' + dado.nome + '<br />' + dado.email + '</p>');
           }
-      }).catch((err) => {
+      } catch(err) {
         alert(err.mensagem + ' ' + err.codigo);
-      })
+      }
     }
 
     // document.getElementById('btnDados').onclick = function () {
