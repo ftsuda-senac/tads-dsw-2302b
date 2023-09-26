@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<body>
+    <h1>Exemplo MVC + Thymeleaf</h1>
+    <form action="/dados-pessoais-thy/busca">
+        <input type="search" name="termo" placeholder="Buscar"/>
+        <input type="hidden" name="quantidade" value="10" />
+        <button>Buscar</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Telefone</th>
+                <th>Data nascimento</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="dados : ${resultados}">
+                <td th:text="${dados.id}"></td>
+                <td th:text="${dados.nome}"></td>
+                <td th:text="${dados.email}"></td>
+                <td th:text="${dados.telefone}"></td>
+                <td th:text="${dados.dataNascimento}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -36,6 +37,15 @@ public class ExemploController {
         lista.add(dados2);
         lista.add(dados3);
         return lista;
+    }
+
+    @GetMapping("/exemplo05")
+    public String exemplo05VerificarMobile(@RequestHeader("user-agent") String userAgent) {
+        String mensagem = "Acesso via dispositivo movel";
+        if (!userAgent.toLowerCase().contains("mobile")) {
+            mensagem = "Acesso via desktop";
+        }
+        return mensagem;
     }
     
 }
