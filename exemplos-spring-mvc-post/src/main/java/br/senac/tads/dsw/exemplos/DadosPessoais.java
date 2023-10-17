@@ -3,24 +3,42 @@ package br.senac.tads.dsw.exemplos;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
+
+@SenhasValidas
 public class DadosPessoais {
 
     private Integer id;
 
+    @NotBlank(message = "Preencha seu nome seu animal")
+    @Size(max = 100)
     private String nome;
 
+    @NotBlank
+    @Size(max = 64)
     private String apelido;
 
+    @NotBlank
+    @Size(max = 200)
+    @Email
     private String email;
 
+    @Size(max = 16)
     private String telefone;
 
+    @Size(min = 8)
     private String senha;
 
+    @Size(min = 8)
     private String senhaRepetida;
 
+    @PastOrPresent
     private LocalDate dataNascimento;
 
+    @Size(min = 1)
     private List<String> conhecimentos;
 
     public DadosPessoais() {

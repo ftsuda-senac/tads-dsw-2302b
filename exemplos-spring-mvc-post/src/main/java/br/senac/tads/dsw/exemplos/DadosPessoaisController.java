@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/dados-pessoais")
 public class DadosPessoaisController {
@@ -57,7 +59,8 @@ public class DadosPessoaisController {
     }
 
     @PostMapping
-    public ResponseEntity<?> salvar(@RequestBody DadosPessoais dados) {
+    public ResponseEntity<?> salvar(@RequestBody @Valid DadosPessoais dados) {
+
         System.out.println(dados.toString());
         service.save(dados);
 

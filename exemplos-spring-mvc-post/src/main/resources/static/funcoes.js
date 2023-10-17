@@ -35,11 +35,25 @@ function postJson(url, dados) {
         }
       } else {
         // ERROS
-        const objErro = {
-          codigo: xhr.status,
-          mensagem: 'Erro'
-        };
-        reject(objErro);
+        if (xhr.status === 400) {
+          const errorResponse = JSON.parse(xhr.responseText);
+          const mensagemErros = []
+          if (errorResponse.errors?.length > 0) {
+            for (const error of errorResponse.errors) {
+              mensagemErros.push({
+                field: error.field,
+                mensagem: error.defaultMessage
+              });
+            }
+          }
+          reject(mensagemErros);
+        } else {
+          const objErro = {
+            codigo: xhr.status,
+            mensagem: 'Erro'
+          };
+          reject(objErro);
+        }
       }
     };
     xhr.send(JSON.stringify(dados));
