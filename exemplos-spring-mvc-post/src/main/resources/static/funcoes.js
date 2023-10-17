@@ -42,7 +42,7 @@ function postJson(url, dados) {
         reject(objErro);
       }
     };
-    xhr.send();
+    xhr.send(JSON.stringify(dados));
   });
   return promise;
 }

@@ -116,4 +116,11 @@ public class DadosPessoais {
         this.conhecimentos = conhecimentos;
     }
 
+    @Override
+    public String toString() {
+        return "****** DadosPessoais [id=" + id + ", nome=" + nome + ", apelido=" + apelido + ", email=" + email
+                + ", telefone=" + telefone + ", senha=" + senha + ", senhaRepetida=" + senhaRepetida
+                + ", dataNascimento=" + dataNascimento + ", conhecimentos=" + conhecimentos + "]";
+    }
+
 }

@@ -1,5 +1,6 @@
 package br.senac.tads.dsw.exemplos;
 
+import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/dados-pessoais")
@@ -57,7 +59,13 @@ public class DadosPessoaisController {
     @PostMapping
     public ResponseEntity<?> salvar(@RequestBody DadosPessoais dados) {
         System.out.println(dados.toString());
-        return ResponseEntity.ok().build();
+        service.save(dados);
+
+        // Prepara a URI que identifica a pessoa salva
+        // Essa informacão é retornada no cabeçalho "Location"
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(dados.getId()).toUri();
+        return ResponseEntity.created(location).build();
     }
     
 }
