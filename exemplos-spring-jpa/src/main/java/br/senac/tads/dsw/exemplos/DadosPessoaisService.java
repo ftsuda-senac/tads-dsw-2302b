@@ -5,14 +5,14 @@ import java.util.Optional;
 
 public interface DadosPessoaisService {
 
-    List<DadosPessoais> findAll();
+    List<DadosPessoaisDto> findAll();
 
-    List<DadosPessoais> searchByTermoBusca(String termoBusca, int pagina, int quantidade);
+    List<DadosPessoaisDto> searchByTermoBusca(String termoBusca, int pagina, int quantidade);
 
-    DadosPessoais findById(Integer id);
+    DadosPessoaisDto findById(Integer id);
 
-    Optional<DadosPessoais> findByIdComOptional(Integer id);
+    Optional<DadosPessoaisDto> findByIdComOptional(Integer id);
 
-    void save(DadosPessoais dados);
+    void save(DadosPessoaisDto dados);
 
 }

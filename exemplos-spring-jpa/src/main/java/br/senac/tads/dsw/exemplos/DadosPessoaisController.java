@@ -27,12 +27,12 @@ public class DadosPessoaisController {
     private DadosPessoaisService service;
 
     @GetMapping
-    public List<DadosPessoais> findAll() {
+    public List<DadosPessoaisDto> findAll() {
         return service.findAll();
     }
     // @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) // ISO-8601 
     @GetMapping("/busca")
-    public List<DadosPessoais> searchByTermoBusca(
+    public List<DadosPessoaisDto> searchByTermoBusca(
         @RequestParam(name = "termo") String termoBusca,
         @RequestParam(required = false) LocalDate dataNascimento,
         @RequestParam(defaultValue = "1") Integer pagina,
@@ -43,7 +43,7 @@ public class DadosPessoaisController {
     }
 
     @GetMapping("/{id}")
-    public DadosPessoais findByIdComOptional(@PathVariable Integer id) {
+    public DadosPessoaisDto findByIdComOptional(@PathVariable Integer id) {
         // Optional<DadosPessoais> optDados = service.findByIdComOptional(id);
         // if (optDados.isPresent()) {
         //     return optDados.get();
@@ -59,7 +59,7 @@ public class DadosPessoaisController {
     }
 
     @PostMapping
-    public ResponseEntity<?> salvar(@RequestBody @Valid DadosPessoais dados) {
+    public ResponseEntity<?> salvar(@RequestBody @Valid DadosPessoaisDto dados) {
 
         System.out.println(dados.toString());
         service.save(dados);
