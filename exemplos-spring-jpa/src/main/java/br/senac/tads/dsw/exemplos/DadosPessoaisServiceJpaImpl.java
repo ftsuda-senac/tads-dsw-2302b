@@ -5,8 +5,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.senac.tads.dsw.exemplos.dominio.DadosPessoais;
@@ -25,7 +31,7 @@ public class DadosPessoaisServiceJpaImpl implements DadosPessoaisService {
 
     @Override
     public List<DadosPessoaisDto> findAll() {
-        List<DadosPessoais> resultadoBd = repo.findAll();
+        List<DadosPessoais> resultadoBd = repo.findComSqlNativo("lei");
         List<DadosPessoaisDto> resultadoFinal = new ArrayList<>();
         for (DadosPessoais bd : resultadoBd) {
             resultadoFinal.add(new DadosPessoaisDto(bd));
@@ -35,8 +41,26 @@ public class DadosPessoaisServiceJpaImpl implements DadosPessoaisService {
 
     @Override
     public List<DadosPessoaisDto> searchByTermoBusca(String termoBusca, int pagina, int quantidade) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'searchByTermoBusca'");
+        if (termoBusca != null && termoBusca.trim().length() > 0) {
+            Page<DadosPessoais> resultadoBd = repo.findByNomeContainingIgnoreCase(termoBusca, PageRequest.of(pagina - 1, quantidade));
+            return resultadoBd.getContent().stream()
+            .map(bd -> new DadosPessoaisDto(bd))
+            .collect(Collectors.toList());
+        } else {
+        Page<DadosPessoais> resultadoBd = repo.findAll(PageRequest.of(pagina - 1, quantidade));
+        return resultadoBd.getContent().stream()
+            .map(bd -> new DadosPessoaisDto(bd))
+            .collect(Collectors.toList());
+        }
+    }
+
+    public Page<DadosPessoaisDto> searchByTermoBuscaPage(String termoBusca, int pagina, int quantidade) {
+         Page<DadosPessoais> resultadoBd = repo.findAll(PageRequest.of(pagina - 1, quantidade));
+         List<DadosPessoaisDto> resultadoDto = new ArrayList<>();
+         for (DadosPessoais bd : resultadoBd.getContent()) {
+            resultadoDto.add(new DadosPessoaisDto(bd));
+         }
+         return new PageImpl<>(resultadoDto, PageRequest.of(pagina - 1, quantidade), resultadoBd.getTotalElements());
     }
 
     @Override

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.senac.tads.dsw.exemplos.dominio.DadosPessoais;
+import br.senac.tads.dsw.exemplos.dominio.FotoPessoa;
 import br.senac.tads.dsw.exemplos.dominio.Interesse;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -44,6 +45,8 @@ public class DadosPessoaisDto {
     @Size(min = 1)
     private List<String> conhecimentos;
 
+    private String urlFoto;
+
     public DadosPessoaisDto() {
     }
 
@@ -77,6 +80,11 @@ public class DadosPessoaisDto {
             interesses.add(i.getNome());
         }
         this.conhecimentos = interesses;
+        if (bd.getFotos() != null && !bd.getFotos().isEmpty()) {
+            for (FotoPessoa foto : bd.getFotos()) {
+                this.urlFoto = "http://localhost:8080/imagens/" + foto.getNomeArquivo();
+            }
+        }
     }
 
     public Integer getId() {
@@ -149,6 +157,14 @@ public class DadosPessoaisDto {
 
     public void setConhecimentos(List<String> conhecimentos) {
         this.conhecimentos = conhecimentos;
+    }
+
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
     }
 
     @Override

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ import jakarta.validation.Valid;
 public class DadosPessoaisController {
 
     @Autowired
-    private DadosPessoaisService service;
+    private DadosPessoaisServiceJpaImpl service;
 
     @GetMapping
     public List<DadosPessoaisDto> findAll() {
@@ -34,12 +35,17 @@ public class DadosPessoaisController {
     @GetMapping("/busca")
     public List<DadosPessoaisDto> searchByTermoBusca(
         @RequestParam(name = "termo") String termoBusca,
-        @RequestParam(required = false) LocalDate dataNascimento,
         @RequestParam(defaultValue = "1") Integer pagina,
         @RequestParam(defaultValue = "10") Integer quantidade) {
-        System.out.println("Data nascimento: " + dataNascimento);
-        System.out.println("Pagina: " + pagina);
         return service.searchByTermoBusca(termoBusca, pagina, quantidade);
+    }
+
+    @GetMapping("/busca-page")
+    public Page<DadosPessoaisDto> searchByTermoBuscaPage(
+        @RequestParam(name = "termo") String termoBusca,
+        @RequestParam(defaultValue = "1") Integer pagina,
+        @RequestParam(defaultValue = "10") Integer quantidade) {
+        return service.searchByTermoBuscaPage(termoBusca, pagina, quantidade);
     }
 
     @GetMapping("/{id}")
@@ -55,7 +61,6 @@ public class DadosPessoaisController {
         return service.findByIdComOptional(id)
             .orElseThrow(() -> new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "ID " + id + " não encontrado"));
-       
     }
 
     @PostMapping

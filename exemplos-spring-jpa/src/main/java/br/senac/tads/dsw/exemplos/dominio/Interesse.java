@@ -50,4 +50,12 @@ public class Interesse {
         this.pessoas = pessoas;
     }
 
+    public Interesse() {
+        
+    }
+
+    public Interesse(String nome) {
+        this.nome = nome;
+    }
+
 }
