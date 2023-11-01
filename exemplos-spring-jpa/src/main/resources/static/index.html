@@ -32,7 +32,7 @@
       <div class="coluna">
         <section class="info" id="conhecimentos">
           <h3>Conhecimentos</h3>
-          <ul id="conhecimentos">
+          <ul id="conhecimentosList">
           </ul>
         </section>
       </div>
@@ -42,19 +42,22 @@
   <script src="funcoes.js"></script>
   <script>
     async function carregarDados() {
+      const searchParams = new URLSearchParams(window.location.search);
+      const idParam = searchParams.has('id') ? searchParams.get('id') : 1;
       try {
-        let resultado = await getJson('/dados-pessoais/50');
+        let resultado = await getJson(`/dados-pessoais/${idParam}`);
         document.getElementById('foto').src = resultado.urlFoto;
         document.getElementById('nome').innerHTML = resultado.nome;
         document.getElementById('email').innerHTML = resultado.email;
         document.getElementById('telefone').innerHTML = resultado.telefone;
         document.getElementById('dataNascimento').innerHTML = resultado.dataNascimento;
 
-        let conhecimentosLi = ''
+        let conhecimentosLi = '';
         for (const c of resultado.conhecimentos) {
           conhecimentosLi += `<li>${c}</li>`;
         }
-        document.getElementById('conhecimentos')
+        document.getElementById('conhecimentosList').innerHTML = '';
+        document.getElementById('conhecimentosList')
           .insertAdjacentHTML('beforeend', conhecimentosLi);
       } catch (err) {
         alert(err);

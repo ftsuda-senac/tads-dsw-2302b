@@ -1,6 +1,5 @@
 package br.senac.tads.dsw.exemplos.dominio;
 
-import br.senac.tads.dsw.exemplos.DadosPessoaisDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

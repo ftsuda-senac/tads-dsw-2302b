@@ -19,8 +19,8 @@ public interface DadosPessoaisRepository extends JpaRepository<DadosPessoais, In
 
     @Query("""
         SELECT dp FROM DadosPessoais dp
-            WHERE UPPER(dp.nome) LIKE UPPER(?1) OR
-                UPPER(dp.email) LIKE UPPER(?1)
+            WHERE UPPER(dp.nome) LIKE UPPER(concat('%', ?1,'%')) OR
+                UPPER(dp.email) LIKE UPPER(concat('%', ?1,'%'))
             """)
     List<DadosPessoais> findComJpql(String termo);
 

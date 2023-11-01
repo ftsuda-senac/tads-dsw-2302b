@@ -2,6 +2,8 @@ package br.senac.tads.dsw.exemplos.dominio;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,7 @@ public class Interesse {
     private String nome;
 
     @ManyToMany(mappedBy = "interesses")
+    @JsonIgnore
     private Set<DadosPessoais> pessoas;
 
     public Integer getId() {
