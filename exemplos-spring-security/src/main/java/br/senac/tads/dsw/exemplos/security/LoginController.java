@@ -7,9 +7,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 @RestController
 @RequestMapping("/login")
 public class LoginController {
@@ -21,7 +21,7 @@ public class LoginController {
     private TokenService tokenService;
 
     @PostMapping
-    public String login(Credencial usuarioCred) {
+    public String login(@RequestBody Credencial usuarioCred) {
         Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         usuarioCred.username(), usuarioCred.senha()));
