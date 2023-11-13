@@ -78,7 +78,7 @@
             <img src="" id="foto" />
             <p>Nome: <span id="nome"></span></p>
             <p>E-mail: <span id="email"></span></p>
-            <p>Telefone: <span id="telefone"></span></p>
+            <p>Hash senha cadastrada: <code id="hashSenha"></code></p>
         </div>
     </div>
 </div>
@@ -88,7 +88,7 @@
         buscarDadosJson('/me', null, jwt).then(function(resp) {
             document.getElementById('nome').innerHTML = resp.nome;
             document.getElementById('email').innerHTML = resp.email;
-            document.getElementById('telefone').innerHTML = resp.telefone;
+            document.getElementById('hashSenha').innerHTML = resp.hashSenha;
             document.getElementById('foto').src = resp.urlFoto;
 
         }).catch(function(err) {

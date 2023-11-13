@@ -42,7 +42,8 @@ public class SecurityConfig {
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        // return NoOpPasswordEncoder.getInstance();
+		return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -74,10 +75,10 @@ public class SecurityConfig {
 			.formLogin(config -> config.disable())
 			.authorizeHttpRequests(authorize -> authorize
 				.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+				.requestMatchers("/paginas/**", "/js/**", "/img/**").permitAll()
 				.requestMatchers("/login").permitAll()
 				.anyRequest().authenticated())
 				.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> Customizer.withDefaults()))
-			
 		.build();
 
 		// @formatter:on

@@ -36,15 +36,15 @@
     const username = elFormLogin.username.value;
     const senha = elFormLogin.senha.value;
 
-    const dados = new URLSearchParams({
+    const dados = {
       username: username,
       senha: senha
-    });
+    };
 
     // Antes de enviar, mostra o spinner
     document.getElementById('spinnerLoad').style.display = 'flex';
 
-    enviarDados('/login', dados, 'application/x-www-form-urlencoded', 'text/plain').then(function(resp) {
+    enviarDados('/login', dados, 'application/json', 'text/plain').then(resp => {
       setTimeout(() => {
         localStorage.setItem('jwt', resp);
         // document.getElementById('spinnerLoad').style.display = 'none';

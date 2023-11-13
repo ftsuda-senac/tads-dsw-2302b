@@ -33,6 +33,7 @@ public class TokenService {
 				.issuedAt(now)
 				.expiresAt(now.plus(duration))
 				.subject(usuario.getUsername())
+				.claim("name", usuario.getNomeCompleto())
 				.claim("email", usuario.getEmail())
 				.claim("scope", scope).build();
 		// @formatter:on

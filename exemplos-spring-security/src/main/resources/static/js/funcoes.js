@@ -6,10 +6,10 @@ function buscarDadosJson(urlJson, params, jwt, accept = 'application/json') {
             urlAjustada = urlAjustada + '?' + params
         }
         xhr.open('GET', urlJson, true);
-        xhr.setRequestHeader('Content-type', 'application/json');
-        xhr.setRequestHeader('Accept', accept);
+        xhr.setRequestHeader('content-type', 'application/json');
+        xhr.setRequestHeader('accept', accept);
         if (jwt != null) {
-            xhr.setRequestHeader('Authorization', 'Bearer ' + jwt);
+            xhr.setRequestHeader('authorization', 'Bearer ' + jwt);
         }
 
         xhr.onload = function () {
@@ -31,8 +31,8 @@ function enviarDados(urlJson, dados, contentType = 'application/json', accept = 
     return new Promise((resolve, reject) => {
       let xhr = new XMLHttpRequest();
       xhr.open('POST', urlJson, true);
-      xhr.setRequestHeader('Content-Type', contentType);
-      xhr.setRequestHeader('Accept', accept);
+      xhr.setRequestHeader('content-type', contentType);
+      xhr.setRequestHeader('accept', accept);
 
       xhr.onload = function() {
         if (xhr.status === 200) {
