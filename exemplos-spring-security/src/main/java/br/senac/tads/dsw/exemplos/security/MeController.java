@@ -14,9 +14,6 @@ public class MeController {
 
     @GetMapping("/me")
     public UserInfo retrieveMe(Authentication auth) {
-
-
-
         Jwt jwt = (Jwt) auth.getPrincipal();
         UsuarioSistema usuario = userSistemaService.loadUserByUsername(jwt.getSubject());
 

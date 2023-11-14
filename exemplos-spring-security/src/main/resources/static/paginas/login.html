@@ -46,6 +46,7 @@
 
     enviarDados('/login', dados, 'application/json', 'text/plain').then(resp => {
       setTimeout(() => {
+        decodificarJwt(resp);
         localStorage.setItem('jwt', resp);
         // document.getElementById('spinnerLoad').style.display = 'none';
         window.location.href = '/paginas/me.html';

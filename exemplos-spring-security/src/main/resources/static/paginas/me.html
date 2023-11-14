@@ -80,6 +80,11 @@
             <p>E-mail: <span id="email"></span></p>
             <p>Hash senha cadastrada: <code id="hashSenha"></code></p>
         </div>
+        <div>
+            <button id="btnComum" class="btn btn-primary">Ver Mensagem Comum</button>
+            <button id="btnJedi" class="btn btn-light d-none">Ver Mensagem Jedi</button>
+            <button id="btnSith" class="btn btn-dark d-none">Ver Mensagem Sith</button>
+        </div>
     </div>
 </div>
 <script src="/js/funcoes.js"></script>
@@ -96,5 +101,37 @@
                 document.getElementById('alerta403').style.display = 'block';
             }
         })
+
+        document.getElementById('btnComum').onclick = function() {
+            buscarDadosJson('/forca', undefined, jwt).then(resp => alert(resp.mensagem)).catch(err => {
+                console.log(err);
+                alert(err.mensagem);
+            });
+        }
+
+        document.getElementById('btnJedi').onclick = function() {
+            buscarDadosJson('/forca/jedi', undefined, jwt).then(resp => alert(resp.mensagem)).catch(err => {
+                console.log(err);
+                alert(err.mensagem);
+            });
+        }
+
+        document.getElementById('btnSith').onclick = function() {
+            buscarDadosJson('/forca/sith', undefined, jwt).then(resp => alert(resp.mensagem)).catch(err => {
+                console.log(err);
+                alert(err.mensagem);
+            });
+        }
+
+        // Esconder/apresentar botões conforme a Role/Scope
+        const jwtDecodificado = decodificarJwt(jwt);
+        const scopes = jwtDecodificado?.scope?.split(/[\s+,]/) ?? [];
+        if (scopes.includes('JEDI')) {
+            const btnJedi = document.getElementById('btnJedi');
+            btnJedi.classList.remove('d-none');
+        } else if (scopes.includes('LORD_SITH')) {
+            const btnSith = document.getElementById('btnSith');
+            btnSith.classList.remove('d-none');
+        }
     </script>
 </body>

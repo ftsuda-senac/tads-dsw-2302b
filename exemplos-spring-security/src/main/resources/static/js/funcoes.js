@@ -62,3 +62,15 @@ function enviarDados(urlJson, dados, contentType = 'application/json', accept = 
       xhr.send(dadosParaEnviar);
     });
 }
+
+// https://stackoverflow.com/a/38552302
+function decodificarJwt(jwt) {
+    const jwtParts = jwt.split('.');
+    // Converte para base64 padrão (jwt usa base64Url)
+    const b64 = jwtParts[1].replace(/-/g, '+').replace(/_/g, '/');
+    const jwtData = decodeURIComponent(atob(b64)
+        .split('')
+        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join(''))
+    return JSON.parse(jwtData);
+}
